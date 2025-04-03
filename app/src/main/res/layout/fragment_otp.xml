@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/white"
+    tools:context=".ui.auth.OtpFragment">
+
+    <ImageView
+        android:id="@+id/logoIv"
+        android:layout_width="@dimen/_200sdp"
+        android:layout_height="@dimen/_50sdp"
+        android:src="@drawable/social_seller_logo_full"
+        app:tint="@color/appColor"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/_30sdp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Verify  Your Number "
+        android:id="@+id/signInLable"
+        android:layout_below="@id/logoIv"
+        android:fontFamily="@font/poppins_bold"
+        android:textSize="@dimen/_20ssp"
+        android:layout_marginTop="@dimen/_20sdp"
+        android:layout_marginLeft="@dimen/_15sdp"
+        android:textColor="@color/black"/>
+
+    <TextView
+        android:id="@+id/desTv"
+        android:layout_below="@id/signInLable"
+        android:layout_marginLeft="@dimen/_15sdp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Please fill your number to get OTP."
+        android:textColor="@color/bg"
+        android:fontFamily="@font/poppins_regular"
+        android:textSize="@dimen/_11ssp"/>
+
+    <EditText
+        android:id="@+id/otpET"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Enter OTP"
+        android:inputType="phone"
+        android:textSize="@dimen/_13ssp"
+        android:padding="@dimen/_10sdp"
+        android:textColor="@color/black"
+        android:layout_below="@id/desTv"
+        android:gravity="center"
+        android:layout_marginTop="@dimen/_15sdp"
+        android:fontFamily="@font/poppins_regular"
+        android:maxLength="6"
+        android:textColorHint="@color/black"
+        android:background="@color/transparent"/>
+
+    <View
+        android:layout_width="@dimen/_150sdp"
+        android:layout_height="@dimen/_1sdp"
+        android:background="@color/bg"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/otpET"/>
+
+    <FrameLayout
+        android:id="@+id/btnFrame"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginLeft="@dimen/_15sdp"
+        android:layout_marginRight="@dimen/_15sdp"
+        android:layout_marginTop="@dimen/_20sdp"
+        android:layout_below="@id/otpET">
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/verifyOTPBtn"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_48sdp"
+            android:layout_alignParentBottom="true"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:layout_marginBottom="@dimen/_10sdp"
+            android:backgroundTint="@color/appColor"
+            android:text="Verify"
+            android:alpha="0.5"
+            android:textAllCaps="true"
+            android:textColor="@color/white"
+            app:cornerRadius="@dimen/_10sdp" />
+
+        <ProgressBar
+            android:id="@+id/progressbar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:indeterminateTint="@color/appColor"
+            android:visibility="invisible"/>
+
+    </FrameLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/btnFrame"
+        android:layout_marginTop="@dimen/_10sdp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Didn’t receive code?"
+            android:layout_weight="1"
+            android:fontFamily="@font/poppins_regular"
+            android:textSize="@dimen/_11ssp"
+            android:gravity="end"
+            android:layout_gravity="center_horizontal"
+            android:textColor="@color/black"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Resend code"
+            android:layout_weight="1"
+            android:layout_marginLeft="@dimen/_5sdp"
+            android:fontFamily="@font/poppins_semi_bold"
+            android:textSize="@dimen/_11ssp"
+            android:layout_gravity="center_horizontal"
+            android:textColor="@color/appColor"/>
+
+    </LinearLayout>
+
+</RelativeLayout>

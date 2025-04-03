@@ -1,6 +1,7 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
+    alias(libs.plugins.androidx.navigation.safe.args)
     id("kotlin-kapt")
     id("com.google.dagger.hilt.android")
 }
@@ -102,8 +103,16 @@ dependencies {
     implementation ("de.hdodenhof:circleimageview:3.1.0")
     //data store
     implementation("androidx.datastore:datastore-preferences:1.1.3")
-    //auth api phone
-    implementation("com.truecaller.android.sdk:truecaller-sdk:3.0.0")
+    implementation ("com.truecaller.android.sdk:truecaller-sdk:3.0.0")
+
+    val nav_version = "2.8.9"
+    implementation("androidx.navigation:navigation-compose:$nav_version")
+    implementation("androidx.navigation:navigation-fragment:$nav_version")
+    implementation("androidx.navigation:navigation-ui:$nav_version")
+    implementation("androidx.navigation:navigation-dynamic-features-fragment:$nav_version")
+    androidTestImplementation("androidx.navigation:navigation-testing:$nav_version")
+    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.7.3")
+
 }
 kapt {
     correctErrorTypes = true

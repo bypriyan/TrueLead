@@ -1,6 +1,5 @@
 package com.socialseller.ceo.ui.auth
 
-import android.graphics.Color
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -10,30 +9,18 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.core.view.isVisible
-import com.socialseller.ceo.R
-import com.socialseller.ceo.databinding.FragmentLoginBinding
-import com.socialseller.clothcrew.utility.KeyboardUtils
-import com.truecaller.android.sdk.oAuth.CodeVerifierUtil
-import com.truecaller.android.sdk.oAuth.TcOAuthCallback
-import com.truecaller.android.sdk.oAuth.TcOAuthData
-import com.truecaller.android.sdk.oAuth.TcOAuthError
-import com.truecaller.android.sdk.oAuth.TcSdk
-import com.truecaller.android.sdk.oAuth.TcSdkOptions
-import java.math.BigInteger
-import java.security.SecureRandom
-import com.truecaller.android.sdk.*
-
-import android.content.Intent
 import androidx.navigation.fragment.findNavController
+import com.socialseller.ceo.R
+import com.socialseller.ceo.databinding.FragmentOtpBinding
+import com.socialseller.clothcrew.utility.KeyboardUtils
 
-class LoginFragment : Fragment(R.layout.fragment_login) {
+class OtpFragment : Fragment(R.layout.fragment_otp) {
 
-    private var _binding: FragmentLoginBinding? = null
+    private var _binding: FragmentOtpBinding? = null
     private val binding get() = _binding!!
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
-        _binding = FragmentLoginBinding.inflate(inflater, container, false)
+        _binding = FragmentOtpBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -43,23 +30,25 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
     }
 
     private fun setupUI() {
+        val phoneNumber = arguments?.let { OtpFragmentArgs.fromBundle(it).phoneNumber }
+        binding.desTv.setText("Enter OTP sent as SMS to +91 $phoneNumber")
         setupPhoneNumberListener()
         binding.apply {
-            requestOTPBtn.setOnClickListener { handleOtpRequest() }
+            verifyOTPBtn.setOnClickListener { handleOtpRequest() }
         }
     }
 
     private fun setupPhoneNumberListener() {
-        binding.phoneNumberET.addTextChangedListener(object : TextWatcher {
+        binding.otpET.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {
-                val isValid = s?.length == 10
-                binding.requestOTPBtn.apply {
+                val isValid = s?.length == 6
+                binding.verifyOTPBtn.apply {
                     isEnabled = isValid
                     alpha = if (isValid) 1.0f else 0.5f
                 }
 
                 if (isValid) {
-                    KeyboardUtils.hideKeyboard(requireContext(), binding.phoneNumberET)
+                    KeyboardUtils.hideKeyboard(requireContext(), binding.otpET)
                 }
             }
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
@@ -68,11 +57,11 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
     }
 
     private fun handleOtpRequest() {
-        val phoneNumber = binding.phoneNumberET.text?.toString()?.trim()
-        if (phoneNumber.isNullOrEmpty() || phoneNumber.length != 10) {
+        val phoneNumber = binding.otpET.text?.toString()?.trim()
+        if (phoneNumber.isNullOrEmpty() || phoneNumber.length != 6) {
             Toast.makeText(
                 requireContext(),
-                "Please enter a valid 10-digit mobile number",
+                "Please enter a valid OTP",
                 Toast.LENGTH_SHORT
             ).show()
             return
@@ -87,10 +76,10 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
         binding.apply {
             if(isLoading){
                 progressbar.visibility = View.VISIBLE
-                requestOTPBtn.visibility = View.GONE
+                verifyOTPBtn.visibility = View.GONE
             }else{
                 progressbar.visibility = View.GONE
-                requestOTPBtn.visibility = View.VISIBLE
+                verifyOTPBtn.visibility = View.VISIBLE
             }
         }
     }

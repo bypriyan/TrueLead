@@ -126,7 +126,7 @@
             android:backgroundTint="@color/appColor"
             android:text="Send OTP"
             android:alpha="0.5"
-            android:textAllCaps="false"
+            android:textAllCaps="true"
             android:textColor="@color/white"
             app:cornerRadius="@dimen/_10sdp" />
 
@@ -140,48 +140,6 @@
 
     </FrameLayout>
 
-    <FrameLayout
-        android:id="@+id/divFrame"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="@dimen/_5sdp"
-        android:layout_below="@id/btnFrame">
-
-        <View
-            android:layout_width="@dimen/_200sdp"
-            android:layout_height="@dimen/_1sdp"
-            android:background="@color/cGray"
-            android:layout_gravity="center"/>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="OR"
-            android:textColor="@color/dark_greay"
-            android:background="@color/white"
-            android:paddingLeft="@dimen/_10sdp"
-            android:paddingRight="@dimen/_10sdp"
-            android:layout_gravity="center"
-            android:textSize="@dimen/_10ssp"/>
-
-    </FrameLayout>
-
-    <TextView
-        android:id="@+id/trueCallerBtn"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/_42sdp"
-        android:layout_gravity="center_vertical"
-        android:layout_marginLeft="@dimen/_15sdp"
-        android:layout_marginRight="@dimen/_15sdp"
-        android:background="@drawable/blue_background"
-        android:gravity="center"
-        android:layout_marginTop="@dimen/_10sdp"
-        android:layout_below="@id/divFrame"
-        android:text="truecaller"
-        android:textColor="@color/appColor"
-        android:textSize="@dimen/_12ssp"
-        android:textStyle="bold" />
-
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -193,7 +151,5 @@
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="@dimen/_15sdp"
         android:textSize="@dimen/_9ssp"/>
-
-
 
 </RelativeLayout>
