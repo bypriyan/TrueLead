@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/white"
+    tools:context=".ui.auth.LoginFragment">
+
+    <ImageView
+        android:id="@+id/logoIv"
+        android:layout_width="@dimen/_200sdp"
+        android:layout_height="@dimen/_50sdp"
+        android:src="@drawable/social_seller_logo_full"
+        app:tint="@color/appColor"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/_30sdp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Sign in"
+        android:id="@+id/signInLable"
+        android:layout_below="@id/logoIv"
+        android:fontFamily="@font/poppins_bold"
+        android:textSize="@dimen/_20ssp"
+        android:layout_marginTop="@dimen/_20sdp"
+        android:layout_marginLeft="@dimen/_15sdp"
+        android:textColor="@color/black"/>
+
+    <TextView
+        android:id="@+id/desTv"
+        android:layout_below="@id/signInLable"
+        android:layout_marginLeft="@dimen/_15sdp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Please fill your number to get OTP."
+        android:textColor="@color/bg"
+        android:fontFamily="@font/poppins_regular"
+        android:textSize="@dimen/_11ssp"/>
+
+    <RelativeLayout
+        android:id="@+id/inputRv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/desTv"
+        android:padding="@dimen/_15sdp">
+
+        <ImageView
+            android:id="@+id/indianflag"
+            android:layout_width="@dimen/_27sdp"
+            android:layout_height="@dimen/_27sdp"
+            android:src="@drawable/india_flag"
+            android:padding="@dimen/_2sdp"
+            android:layout_centerVertical="true"
+            android:layout_alignParentStart="true"/>
+
+        <TextView
+            android:id="@+id/countryCode"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="+91"
+            android:textColor="@color/black"
+            android:textStyle="bold"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@id/indianflag"
+            android:fontFamily="@font/poppins_regular"
+            android:layout_marginLeft="@dimen/_8sdp"
+            android:textSize="@dimen/_13ssp"/>
+
+        <View
+            android:layout_width="@dimen/_60sdp"
+            android:layout_height="@dimen/_1sdp"
+            android:background="@color/bg"
+            android:layout_marginTop="@dimen/_9sdp"
+            android:layout_below="@id/indianflag"/>
+
+        <!-- Mobile number input -->
+        <EditText
+            android:id="@+id/phoneNumberET"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Mobile Number"
+            android:inputType="phone"
+            android:layout_marginLeft="@dimen/_15sdp"
+            android:textSize="@dimen/_13ssp"
+            android:padding="@dimen/_10sdp"
+            android:textColor="@color/black"
+            android:fontFamily="@font/poppins_regular"
+            android:maxLength="10"
+            android:textColorHint="@color/black"
+            android:layout_toRightOf="@id/countryCode"
+            android:background="@color/transparent">
+            <requestFocus/>
+        </EditText>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_1sdp"
+            android:background="@color/bg"
+            android:layout_toRightOf="@id/countryCode"
+            android:layout_marginLeft="@dimen/_15sdp"
+            android:layout_marginTop="@dimen/_9sdp"
+            android:layout_below="@id/indianflag"/>
+
+
+
+    </RelativeLayout>
+
+    <FrameLayout
+        android:id="@+id/btnFrame"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginLeft="@dimen/_15sdp"
+        android:layout_marginRight="@dimen/_15sdp"
+        android:layout_below="@id/inputRv">
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/requestOTPBtn"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_48sdp"
+            android:layout_alignParentBottom="true"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:layout_marginBottom="@dimen/_10sdp"
+            android:backgroundTint="@color/appColor"
+            android:text="Send OTP"
+            android:alpha="0.5"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            app:cornerRadius="@dimen/_10sdp" />
+
+        <ProgressBar
+            android:id="@+id/progressbar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:indeterminateTint="@color/appColor"
+            android:visibility="invisible"/>
+
+    </FrameLayout>
+
+    <FrameLayout
+        android:id="@+id/divFrame"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/_5sdp"
+        android:layout_below="@id/btnFrame">
+
+        <View
+            android:layout_width="@dimen/_200sdp"
+            android:layout_height="@dimen/_1sdp"
+            android:background="@color/cGray"
+            android:layout_gravity="center"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="OR"
+            android:textColor="@color/dark_greay"
+            android:background="@color/white"
+            android:paddingLeft="@dimen/_10sdp"
+            android:paddingRight="@dimen/_10sdp"
+            android:layout_gravity="center"
+            android:textSize="@dimen/_10ssp"/>
+
+    </FrameLayout>
+
+    <TextView
+        android:id="@+id/trueCallerBtn"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_42sdp"
+        android:layout_gravity="center_vertical"
+        android:layout_marginLeft="@dimen/_15sdp"
+        android:layout_marginRight="@dimen/_15sdp"
+        android:background="@drawable/blue_background"
+        android:gravity="center"
+        android:layout_marginTop="@dimen/_10sdp"
+        android:layout_below="@id/divFrame"
+        android:text="truecaller"
+        android:textColor="@color/appColor"
+        android:textSize="@dimen/_12ssp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="*By continuing, you are agreeing to our \nterms of service and privacy policy."
+        android:textColor="@color/bg"
+        android:fontFamily="@font/poppins_regular"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="@dimen/_15sdp"
+        android:textSize="@dimen/_9ssp"/>
+
+
+
+</RelativeLayout>
