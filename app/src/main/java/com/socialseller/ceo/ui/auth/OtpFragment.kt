@@ -9,15 +9,26 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.socialseller.ceo.R
 import com.socialseller.ceo.databinding.FragmentOtpBinding
+import com.socialseller.ceo.viewModel.AuthViewModel
 import com.socialseller.clothcrew.utility.KeyboardUtils
+import com.socialseller.clothcrew.utility.ResponceHelper
+import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
+import kotlin.getValue
 
+@AndroidEntryPoint
 class OtpFragment : Fragment(R.layout.fragment_otp) {
 
     private var _binding: FragmentOtpBinding? = null
     private val binding get() = _binding!!
+    private val authViewModel: AuthViewModel by viewModels()
+    private lateinit var phoneNumber: String
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         _binding = FragmentOtpBinding.inflate(inflater, container, false)
@@ -27,10 +38,11 @@ class OtpFragment : Fragment(R.layout.fragment_otp) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setupUI()
+        observeOTPResponce()
     }
 
     private fun setupUI() {
-        val phoneNumber = arguments?.let { OtpFragmentArgs.fromBundle(it).phoneNumber }
+        phoneNumber = arguments?.let { OtpFragmentArgs.fromBundle(it).phoneNumber }!!
         binding.desTv.setText("Enter OTP sent as SMS to +91 $phoneNumber")
         setupPhoneNumberListener()
         binding.apply {
@@ -41,7 +53,7 @@ class OtpFragment : Fragment(R.layout.fragment_otp) {
     private fun setupPhoneNumberListener() {
         binding.otpET.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {
-                val isValid = s?.length == 6
+                val isValid = s?.length == 4
                 binding.verifyOTPBtn.apply {
                     isEnabled = isValid
                     alpha = if (isValid) 1.0f else 0.5f
@@ -56,9 +68,27 @@ class OtpFragment : Fragment(R.layout.fragment_otp) {
         })
     }
 
+    private fun observeOTPResponce() {
+        viewLifecycleOwner.lifecycleScope.launch {
+            authViewModel.verifyOTP.collectLatest { response ->
+                ResponceHelper.handleApiResponse(
+                    response,
+                    onSuccess = {
+                        toggleLoading(false)
+
+                    },
+                    onError = { error ->
+                        toggleLoading(false)
+                    },
+                    logTag = "Login"
+                )
+            }
+        }
+    }
+
     private fun handleOtpRequest() {
-        val phoneNumber = binding.otpET.text?.toString()?.trim()
-        if (phoneNumber.isNullOrEmpty() || phoneNumber.length != 6) {
+        val otp = binding.otpET.text?.toString()?.trim()
+        if (otp.isNullOrEmpty() || otp.length != 4) {
             Toast.makeText(
                 requireContext(),
                 "Please enter a valid OTP",
@@ -68,8 +98,7 @@ class OtpFragment : Fragment(R.layout.fragment_otp) {
         }
         toggleLoading(true)
         // Navigate to OtpFragment
-        val action = LoginFragmentDirections.actionLoginFragmentToOtpFragment(phoneNumber)
-        findNavController().navigate(action)
+        authViewModel.verifyOTP(phoneNumber, otp)
     }
 
     private fun toggleLoading(isLoading: Boolean) {

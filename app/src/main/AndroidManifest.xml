@@ -19,6 +19,9 @@
         android:theme="@style/Theme.CEO"
         tools:targetApi="31">
         <activity
+            android:name=".ui.home.HomeActivity"
+            android:exported="false" />
+        <activity
             android:name=".ui.auth.AuthActivity"
             android:exported="false" />
         <activity
