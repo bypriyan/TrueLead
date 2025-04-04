@@ -1,36 +1,35 @@
 package com.socialseller.ceo.ui.auth
 
-import android.graphics.Color
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.view.isVisible
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import com.socialseller.ceo.R
 import com.socialseller.ceo.databinding.FragmentLoginBinding
 import com.socialseller.clothcrew.utility.KeyboardUtils
-import com.truecaller.android.sdk.oAuth.CodeVerifierUtil
-import com.truecaller.android.sdk.oAuth.TcOAuthCallback
-import com.truecaller.android.sdk.oAuth.TcOAuthData
-import com.truecaller.android.sdk.oAuth.TcOAuthError
-import com.truecaller.android.sdk.oAuth.TcSdk
-import com.truecaller.android.sdk.oAuth.TcSdkOptions
-import java.math.BigInteger
-import java.security.SecureRandom
-import com.truecaller.android.sdk.*
-
-import android.content.Intent
 import androidx.navigation.fragment.findNavController
+import com.socialseller.ceo.viewModel.AuthViewModel
+import com.socialseller.clothcrew.utility.ResponceHelper
+import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
+import kotlin.getValue
 
+@AndroidEntryPoint
 class LoginFragment : Fragment(R.layout.fragment_login) {
 
     private var _binding: FragmentLoginBinding? = null
     private val binding get() = _binding!!
+    private val authViewModel: AuthViewModel by viewModels()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         _binding = FragmentLoginBinding.inflate(inflater, container, false)
@@ -40,12 +39,31 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setupUI()
+        observeLoginResponce()
     }
 
     private fun setupUI() {
         setupPhoneNumberListener()
         binding.apply {
             requestOTPBtn.setOnClickListener { handleOtpRequest() }
+        }
+    }
+    private fun observeLoginResponce() {
+        viewLifecycleOwner.lifecycleScope.launch {
+            authViewModel.loginUser.collectLatest { response ->
+                ResponceHelper.handleApiResponse(
+                    response,
+                    onSuccess = {
+                        toggleLoading(false)
+                        val action = LoginFragmentDirections.actionLoginFragmentToOtpFragment(binding.phoneNumberET.text.toString())
+                        findNavController().navigate(action)
+                    },
+                    onError = { errored ->
+                        toggleLoading(false)
+                    },
+                    logTag = "Login"
+                )
+            }
         }
     }
 
@@ -78,9 +96,8 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
             return
         }
         toggleLoading(true)
-        // Navigate to OtpFragment
-        val action = LoginFragmentDirections.actionLoginFragmentToOtpFragment(phoneNumber)
-        findNavController().navigate(action)
+        authViewModel.loginUser(phoneNumber)
+
     }
 
     private fun toggleLoading(isLoading: Boolean) {

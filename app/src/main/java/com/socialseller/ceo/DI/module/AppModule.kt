@@ -3,10 +3,11 @@ package com.bypriyan.togocartstore.DI.module
 import android.content.Context
 import android.content.SharedPreferences
 import android.location.Geocoder
+import com.google.gson.Gson
+import com.socialseller.ceo.api.ApiAuth
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
-import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -21,16 +22,16 @@ object AppModule {
     @Singleton
     fun provideRetrofit(): Retrofit {
         return Retrofit.Builder()
-            .baseUrl("https://api.cc.socialseller.in/api/") // Replace with your base URL
+            .baseUrl("https://erpcopy.bulkbroadcast.com/api/") // Replace with your base URL
             .addConverterFactory(GsonConverterFactory.create())
             .build()
     }
 
-//    @Provides
-//    @Singleton
-//    fun provideApiAuth(retrofit: Retrofit): ApiAuth {
-//        return retrofit.create(ApiAuth::class.java)
-//    }
+    @Provides
+    @Singleton
+    fun provideApiAuth(retrofit: Retrofit): ApiAuth {
+        return retrofit.create(ApiAuth::class.java)
+    }
 //
 //    @Provides
 //    @Singleton
@@ -43,5 +44,9 @@ object AppModule {
 //    fun provideApiAddress(retrofit: Retrofit): ApiAddress {
 //        return retrofit.create(ApiAddress::class.java)
 //    }
+
+    @Provides
+    @Singleton
+    fun provideGson(): Gson = Gson()
 
 }

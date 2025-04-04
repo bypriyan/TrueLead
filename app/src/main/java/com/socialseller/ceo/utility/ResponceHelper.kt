@@ -8,6 +8,7 @@ object ResponceHelper {
      fun <T> handleApiResponse(
         response: ApiResponse<T>,
         onSuccess: (T) -> Unit,
+        onError: ((String) -> Unit),
         logTag: String
     ) {
         when (response) {
@@ -18,6 +19,7 @@ object ResponceHelper {
                 response.data?.let(onSuccess)
             }
             is ApiResponse.Error -> {
+                onError(response.message ?: "Unknown error")
                 Log.d(logTag, "Error fetching $logTag: ${response.message}")
             }
         }
