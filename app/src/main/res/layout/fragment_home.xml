@@ -92,7 +92,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal"
-                        android:paddingHorizontal="@dimen/_15sdp">
+                        android:paddingHorizontal="@dimen/_10sdp">
 
                         <include layout="@layout/view_stat_card" />
                         <include layout="@layout/view_stat_card" />
@@ -103,7 +103,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal"
-                        android:paddingHorizontal="@dimen/_15sdp"
+                        android:paddingHorizontal="@dimen/_10sdp"
                         android:layout_marginTop="@dimen/_5sdp">
 
                         <include layout="@layout/view_stat_card" />
