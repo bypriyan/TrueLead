@@ -1,6 +1,6 @@
-<?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/nav_graph"
     app:startDestination="@id/loginFragment">
 
     <fragment
@@ -10,6 +10,9 @@
         <action
             android:id="@+id/action_loginFragment_to_otpFragment"
             app:destination="@id/otpFragment" />
+        <action
+            android:id="@+id/action_loginFragment_to_homeActivity"
+            app:destination="@id/main_graph" /> <!-- Link to your bottom nav -->
         <argument
             android:name="phoneNumber"
             app:argType="string" />
@@ -24,4 +27,8 @@
             app:argType="string" />
     </fragment>
 
+    <navigation
+        android:id="@+id/main_graph"
+        app:startDestination="@id/homeFragment"
+        app:graph="@navigation/main_nav_graph" />
 </navigation>

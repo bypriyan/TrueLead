@@ -1,5 +1,6 @@
 package com.socialseller.ceo.ui.auth
 
+import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -14,6 +15,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.socialseller.ceo.R
 import com.socialseller.ceo.databinding.FragmentOtpBinding
+import com.socialseller.ceo.ui.home.HomeActivity
 import com.socialseller.ceo.viewModel.AuthViewModel
 import com.socialseller.clothcrew.utility.KeyboardUtils
 import com.socialseller.clothcrew.utility.ResponceHelper
@@ -75,6 +77,7 @@ class OtpFragment : Fragment(R.layout.fragment_otp) {
                     response,
                     onSuccess = {
                         toggleLoading(false)
+                        startActivity(Intent(requireContext(), HomeActivity::class.java))
 
                     },
                     onError = { error ->

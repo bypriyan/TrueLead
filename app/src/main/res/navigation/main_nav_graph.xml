@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/main_nav_graph"
+    app:startDestination="@id/homeFragment">
+
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="com.socialseller.ceo.ui.home.HomeFragment"
+        android:label="Home" />
+
+    <fragment
+        android:id="@+id/leadsFragment"
+        android:name="com.socialseller.ceo.ui.home.LeadsFragment"
+        android:label="Leads" />
+
+    <fragment
+        android:id="@+id/performanceFragment"
+        android:name="com.socialseller.ceo.ui.home.PerformanceFragment"
+        android:label="Performance" />
+
+    <fragment
+        android:id="@+id/organizationFragment"
+        android:name="com.socialseller.ceo.ui.home.OrganizationFragment"
+        android:label="Organization" />
+
+    <fragment
+        android:id="@+id/settingsFragment"
+        android:name="com.socialseller.ceo.ui.home.SettingsFragment"
+        android:label="Settings" />
+</navigation>

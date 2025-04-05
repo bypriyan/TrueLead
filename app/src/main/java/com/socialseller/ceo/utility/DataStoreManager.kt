@@ -34,6 +34,8 @@ class DataStoreManager @Inject constructor(@ApplicationContext context: Context,
         val NAMING_CONVENTION = stringPreferencesKey("naming_convention_employee")
     }
 
+
+
     suspend fun saveLoginData(
         token: String,
         user: User,
