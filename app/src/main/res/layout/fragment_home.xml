@@ -85,7 +85,7 @@
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
                     android:paddingTop="@dimen/_10sdp"
-                    android:paddingBottom="?attr/actionBarSize"> <!-- Add space for TabLayout -->
+                    android:paddingBottom="?attr/actionBarSize">
 
                     <LinearLayout
                         android:id="@+id/line1"
@@ -111,19 +111,18 @@
                     </LinearLayout>
                 </LinearLayout>
             </LinearLayout>
-
-            <!-- TabLayout will stick to the top when scrolling -->
-            <com.google.android.material.tabs.TabLayout
-                android:id="@+id/tabLayout"
-                android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize"
-                android:background="@color/appColor"
-                app:tabIndicatorHeight="0dp"
-                app:tabGravity="fill"
-                app:tabMode="scrollable"
-                app:layout_collapseMode="pin"
-                android:layout_gravity="bottom"/>
         </com.google.android.material.appbar.CollapsingToolbarLayout>
+
+        <!-- TabLayout moved OUTSIDE CollapsingToolbarLayout but INSIDE AppBarLayout -->
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/tabLayout"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="@color/appColor"
+            app:tabIndicatorHeight="0dp"
+            app:tabGravity="fill"
+            app:tabMode="scrollable"
+            app:layout_scrollFlags="scroll|enterAlways"/>
     </com.google.android.material.appbar.AppBarLayout>
 
     <!-- Content -->
@@ -137,8 +136,7 @@
         <androidx.viewpager2.widget.ViewPager2
             android:id="@+id/viewPager"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginTop="?attr/actionBarSize"/>
+            android:layout_height="match_parent"/>
     </androidx.core.widget.NestedScrollView>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
